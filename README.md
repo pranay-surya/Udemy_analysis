@@ -9,7 +9,15 @@
 An end-to-end data analysis project that explores online education trends using a comprehensive dataset of 3,678 Udemy courses. Raw data manipulation via Pandas is surfaced through a custom-built, interactive FastAPI dashboard with live filtering, charting, and course exploration.
 
 ---
- 
+##  Dashboard Preview
+<p align="center">
+  <img src="SS/Screenshot 2026-03-05 004009.png" alt="Udemy EDA Dashboard" width="900"/>
+</p>
+
+<p align="center">
+  <img src="SS/Screenshot 2026-03-05 004029.png" alt="Udemy EDA Dashboard" width="900"/>
+</p>
+
 
 ## Analytical Objectives
 
