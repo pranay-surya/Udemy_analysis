@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Udemy Course Intelligence Platform</title>
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <!-- App Stylesheet -->
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     TOP BAR
+══════════════════════════════════════ -->
+<header class="topbar">
+  <a class="topbar-logo" href="#" onclick="switchView('analytics'); return false;">
+    <div class="logo-icon">u</div>
+    <span class="logo-text">course<span>IQ</span></span>
+  </a>
+  <nav class="topbar-nav">
+    <button class="nav-btn active" id="nav-analytics" onclick="switchView('analytics')">
+      <i class="fas fa-chart-line"></i> <span>Analytics</span>
+    </button>
+    <button class="nav-btn" id="nav-courses" onclick="switchView('courses')">
+      <i class="fas fa-graduation-cap"></i> <span>Courses</span>
+    </button>
+  </nav>
+</header>
+
+<!-- ══════════════════════════════════════
+     MAIN CONTENT
+══════════════════════════════════════ -->
+<main class="main">
+
+  <!-- VIEW: ANALYTICS -->
+  <section class="view active" id="view-analytics">
+
+    <div class="hero">
+      <h1>Udemy Course <span>Intelligence</span> Platform</h1>
+      <p>Deep analysis of 3,678 courses across 4 subjects — pricing insights, subscriber trends, level breakdowns, and yearly growth patterns.</p>
+      <div class="hero-badges">
+        <span class="hero-badge purple"><i class="fas fa-database"></i> 3,678 Courses</span>
+        <span class="hero-badge orange"><i class="fas fa-chart-bar"></i> EDA Analytics</span>
+        <span class="hero-badge green"><i class="fas fa-filter"></i> Smart Filters</span>
+      </div>
+    </div>
+
+    <div class="stat-grid" id="stat-grid">
+      <div class="loader"><div class="spinner"></div> Loading analytics…</div>
+    </div>
+
+    <div class="chart-grid" id="charts-row1"></div>
+    <div class="chart-grid three" id="charts-row2"></div>
+
+    <div class="table-wrap">
+      <div class="table-header-row">
+        <h3><i class="fas fa-trophy"></i> Top 10 Courses by Subscribers</h3>
+        <span>Ranked by enrollment count</span>
+      </div>
+      <div id="top-table-body">
+        <div class="loader"><div class="spinner"></div></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- VIEW: COURSES BROWSER -->
+  <section class="view" id="view-courses">
+
+    <div class="section-heading">
+      <h2>Course Browser</h2>
+      <span class="pill-tag">3,678 COURSES</span>
+    </div>
+
+    <div class="filters-bar">
+      <div class="filter-group grow">
+        <label><i class="fas fa-search"></i> Search Title</label>
+        <input type="text" class="filter-input" id="search-input"
+               placeholder="e.g. Python, Photoshop, Guitar…"
+               oninput="debounceSearch()" />
+      </div>
+      <div class="filter-group">
+        <label><i class="fas fa-folder"></i> Subject</label>
+        <select class="filter-select" id="filter-subject" onchange="fetchCourses(1)">
+          <option value="all">All Subjects</option>
+          <option value="Web Development">Web Development</option>
+          <option value="Business Finance">Business Finance</option>
+          <option value="Graphic Design">Graphic Design</option>
+          <option value="Musical Instruments">Musical Instruments</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label><i class="fas fa-signal"></i> Level</label>
+        <select class="filter-select" id="filter-level" onchange="fetchCourses(1)">
+          <option value="all">All Levels</option>
+          <option value="All Levels">All Levels</option>
+          <option value="Beginner Level">Beginner</option>
+          <option value="Intermediate Level">Intermediate</option>
+          <option value="Expert Level">Expert</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label><i class="fas fa-sort-amount-down"></i> Sort By</label>
+        <select class="filter-select" id="filter-sort" onchange="fetchCourses(1)">
+          <option value="num_subscribers">Most Popular</option>
+          <option value="num_reviews">Most Reviewed</option>
+          <option value="price">Price</option>
+          <option value="content_duration">Duration</option>
+          <option value="num_lectures">Lectures</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label><i class="fas fa-tag"></i> Price</label>
+        <select class="filter-select" id="filter-price" onchange="fetchCourses(1)">
+          <option value="any">Any Price</option>
+          <option value="free">Free Only</option>
+          <option value="paid">Paid Only</option>
+          <option value="low">Under $50</option>
+          <option value="high">$100+</option>
+        </select>
+      </div>
+      <button class="search-btn" onclick="fetchCourses(1)">
+        <i class="fas fa-search"></i> Search
+      </button>
+    </div>
+
+    <p class="results-info" id="results-info"></p>
+    <div class="courses-grid" id="courses-grid">
+      <div class="loader"><div class="spinner"></div></div>
+    </div>
+    <div class="pagination" id="pagination"></div>
+
+  </section>
+
+</main>
+
+<!-- ══════════════════════════════════════
+     COURSE DETAIL MODAL
+══════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal-topbar"></div>
+    <div class="modal-header">
+      <div class="modal-header-text">
+        <div class="modal-subject-tag" id="modal-subject"></div>
+        <div class="modal-title" id="modal-title"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-stats-row">
+        <div class="modal-stat">
+          <div class="v" id="modal-price"></div>
+          <div class="l"><i class="fas fa-tag"></i> Price</div>
+        </div>
+        <div class="modal-stat">
+          <div class="v" id="modal-subs"></div>
+          <div class="l"><i class="fas fa-users"></i> Subscribers</div>
+        </div>
+        <div class="modal-stat">
+          <div class="v" id="modal-reviews"></div>
+          <div class="l"><i class="fas fa-star"></i> Reviews</div>
+        </div>
+      </div>
+      <div class="modal-stats-row2">
+        <div class="modal-stat">
+          <div class="v" id="modal-lectures"></div>
+          <div class="l"><i class="fas fa-list"></i> Lectures</div>
+        </div>
+        <div class="modal-stat">
+          <div class="v" id="modal-duration"></div>
+          <div class="l"><i class="fas fa-clock"></i> Duration</div>
+        </div>
+        <div class="modal-stat">
+          <div class="v" id="modal-level" style="font-size:14px"></div>
+          <div class="l"><i class="fas fa-signal"></i> Level</div>
+        </div>
+        <div class="modal-stat">
+          <div class="v" id="modal-cid" style="font-family:var(--font-mono);font-size:14px"></div>
+          <div class="l"><i class="fas fa-hashtag"></i> Course ID</div>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-primary" id="modal-udemy-btn">
+          <i class="fas fa-external-link-alt"></i> View on Udemy
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- App JavaScript -->
+<script src="/static/main.js"></script>
+
+</body>
+</html>
