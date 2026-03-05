@@ -177,3 +177,27 @@ GET /api/courses?search=excel&max_price=50
 - Sort by popularity, reviews, price, duration, or lecture count
 - Paginated card grid — 24 results per page
 - Course detail modal with full stats and direct Udemy link
+
+
+## Collaborator 
+<table>
+<tr>
+
+<td align="center">
+<a href="https://github.com/pranay-surya">
+<img src="https://github.com/pranay-surya.png" width="110px;" alt="Pranay Suryawanshi"/><br />
+<sub><b>Pranay Suryawanshi</b></sub>
+</a><br />
+<sub>Lead Developer</sub>
+</td>
+
+<td align="center">
+<a href="https://github.com/Bhatwar195">
+<img src="https://github.com/Bhatwar195.png" width="110px;" alt="Bhavesh Hatwar"/><br />
+<sub><b>Bhavesh Hatwar</b></sub>
+</a><br />
+<sub>Team Member</sub>
+</td>
+
+</tr>
+</table>
