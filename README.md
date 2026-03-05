@@ -188,7 +188,7 @@ GET /api/courses?search=excel&max_price=50
 <img src="https://github.com/pranay-surya.png" width="110px;" alt="Pranay Suryawanshi"/><br />
 <sub><b>Pranay Suryawanshi</b></sub>
 </a><br />
-<sub>Lead Developer</sub>
+<sub>Collaborator</sub>
 </td>
 
 <td align="center">
@@ -196,7 +196,7 @@ GET /api/courses?search=excel&max_price=50
 <img src="https://github.com/Bhatwar195.png" width="110px;" alt="Bhavesh Hatwar"/><br />
 <sub><b>Bhavesh Hatwar</b></sub>
 </a><br />
-<sub>Team Member</sub>
+<sub>Collaborator</sub>
 </td>
 
 </tr>
